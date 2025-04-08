@@ -1,0 +1,29 @@
+name: 'AI PR Review'
+description: 'Uses OpenAI or Together AI to review pull requests'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+
+  OPENAI_API_KEY:
+    description: 'OpenAI API key or Together AI API key'
+    required: true
+
+  OPENAI_API_MODEL:
+    description: 'Model to use for review (e.g., gpt-4, meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo)'
+    required: true
+    default: 'deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free'  # ✅ Default Together AI model
+
+  OPENAI_BASE_URL:
+    description: 'Base URL for API (use https://api.together.xyz/v1 for Together AI)'
+    required: false
+    default: 'https://api.together.xyz/v1'  # ✅ Default Together AI API base URL
+
+  exclude:
+    description: 'Comma-separated list of file patterns to exclude from review'
+    required: false
+    default: '*.lock,package-lock.json,yarn.lock,dist/**,build/**,*.min.js'
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
